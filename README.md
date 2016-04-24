@@ -24,7 +24,7 @@ A toolbox of small functions used in most my other codes.
 
 ## KSP
 
-This is a mini-library that allows you yo have an interactive **KRPC** session in your python iterface. Just do **from ksp import \* ** and you'll get a connected terminal with a minimal setup: the active ship ( **vessel** ), its controls ( **control** ) and its autopilot ( **ap** ).
+This is a mini-library that allows you yo have an interactive **KRPC** session in your python iterface. Just do **import ksp ** and you'll get a connected terminal with a minimal setup: the active ship ( **vessel** ), its controls ( **control** ) and its autopilot ( **ap** ).
 
 ## Launch
 
