@@ -24,11 +24,13 @@ A toolbox of small functions used in most my other codes.
 
 ## KSP
 
-This is a mini-library that allows you yo have an interactive **KRPC** session in your python iterface. Just do **from ksp import * ** and you'll get a connected terminal with a minimal setup: the active ship (**vessel**), its controls (**control**) and its autopilot (**ap**).
+This is a mini-library that allows you yo have an interactive **KRPC** session in your python iterface. Just do **from ksp import \* ** and you'll get a connected terminal with a minimal setup: the active ship ( **vessel** ), its controls ( **control** ) and its autopilot ( **ap** ).
 
 ## Launch
 
 A fairly generic launch code. It only uses kinematic information (acceleration and speed) as input for its controls so that it should not depend on your rocket too much as long as your engines are well aligned and you have enough torque control. In practice, there is a significant difference between the ideal situation and real-life - due to the finite time needed to rotate to desired directions and aerodynamic forces - so that some parameter adjustment is needed.
+
+The altitude target for the orbit is called **alttarg**
 
 The launch sequence is the following:
 
