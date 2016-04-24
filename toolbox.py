@@ -9,7 +9,7 @@ def curse_centered_addstr(l,pos,scr):
     except ERR:
         scr.addstr(my-1,0,"ERROR IN PRINTING")
         pass
-    
+
 
 def stage(vess):
     vess.control.activate_next_stage()
@@ -31,8 +31,8 @@ class runmode:
         return self.mode == n
     def __str__(self):
         return "Run Mode: "+str(self.mode)
-    
-def check_engines(vessel,thres=0.01):
+
+def check_engines(vessel):
     for eng in vessel.parts.engines:
         if not eng.has_fuel:
             stage(vessel)
