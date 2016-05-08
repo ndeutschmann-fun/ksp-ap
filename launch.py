@@ -27,7 +27,7 @@ ap = vessel.auto_pilot
 rm = runmode()
 
 # Target Orbit
-alttarg = 100000
+alttarg = 120000
 # G-force program:
 gmin = 1.1
 gmax = 1.3
