@@ -43,4 +43,4 @@
 ## Wait for RDVZ
 
 1. Warp until the date of apoapsis - margin of error
-2. 
+2. stage

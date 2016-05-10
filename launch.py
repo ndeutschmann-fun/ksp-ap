@@ -27,15 +27,15 @@ ap = vessel.auto_pilot
 rm = runmode()
 
 # Target Orbit
-alttarg = 120000
+alttarg = 100000
 # G-force program:
 gmin = 1.1
-gmax = 1.3
-transition_altitude = 17000
+gmax = 1.5
+transition_altitude = 25000
 
 ap.target_pitch_and_heading(90,90)
 ap.engage()
-ap.set_pid_parameters(25,0, 0.1)
+ap.set_pid_parameters(10,0,0.1)
 control.throttle = 1
 
 altitude = conn.add_stream(getattr,vessel.flight(),'mean_altitude')
@@ -81,6 +81,8 @@ while rm:
     sleep(0.05)
     if altitude() > 35000: ## Transition from surface prograde to orbit prograde
         ap.reference_frame = vessel.orbital_reference_frame
+    if control.current_stage < 3:
+        ap.set_pid_parameters(5,0,0.01)
     if rm(0): #Ignite engines, then open clamps
         stage(vessel)
         if len(vessel.parts.launch_clamps) > 0:
@@ -89,11 +91,11 @@ while rm:
         rm+1
         continue
     if rm(1): # Go straight up until fast enough
-         if tnorm(airspeed()) > 75:
+         if tnorm(airspeed()) > 150:
             rm+1
     if rm(2): # Initiate gravity turn
-        ap.target_pitch_and_heading(85,90)
-        if tnorm(airspeed())>200:
+        ap.target_pitch_and_heading(75,90)
+        if tnorm(airspeed())>300:
             rm+1
             tmem = t()
     if rm(3): # Keep prograde until the target apoapsis is reached or the ship is horizontal enough
@@ -105,11 +107,11 @@ while rm:
         if vessel.orbit.apoapsis_altitude > alttarg:
             rm+3
         if vessel.flight().pitch < 25:
-            detamem = 40-vessel.orbit.time_to_apoapsis
+            detamem = 70-vessel.orbit.time_to_apoapsis
             throttcommand = 0
             rm+1
     if rm(4): # Keep the apoapsis 40s away until the ship is completely horizontal
-        deta = (40 - vessel.orbit.time_to_apoapsis)
+        deta = (70 - vessel.orbit.time_to_apoapsis)
         dt = t()-tmem
         if dt > 0:
             throttcommand = 0.2*deta + 0.02*(detamem-deta)/dt
