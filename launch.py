@@ -5,7 +5,7 @@ from time import sleep
 import curses
 from math import exp,sqrt
 
-debug = False
+debug = True
 
 if not debug:
     stdscr = curses.initscr()
@@ -30,7 +30,7 @@ rm = runmode()
 alttarg = 100000
 # G-force program:
 gmin = 1.1
-gmax = 1.5
+gmax = 1.35
 transition_altitude = 25000
 
 ap.target_pitch_and_heading(90,90)
@@ -79,8 +79,6 @@ while rm:
 ####PRINT####
 
     sleep(0.05)
-    if altitude() > 35000: ## Transition from surface prograde to orbit prograde
-        ap.reference_frame = vessel.orbital_reference_frame
     if control.current_stage < 3:
         ap.set_pid_parameters(5,0,0.01)
     if rm(0): #Ignite engines, then open clamps
@@ -91,15 +89,17 @@ while rm:
         rm+1
         continue
     if rm(1): # Go straight up until fast enough
-         if tnorm(airspeed()) > 150:
+         if tnorm(airspeed()) > 100:
             rm+1
     if rm(2): # Initiate gravity turn
         ap.target_pitch_and_heading(75,90)
-        if tnorm(airspeed())>300:
+        if tnorm(airspeed())>150:
             rm+1
             tmem = t()
     if rm(3): # Keep prograde until the target apoapsis is reached or the ship is horizontal enough
         ap.reference_frame = vessel.surface_velocity_reference_frame
+        if altitude() > 35000: ## Transition from surface prograde to orbit prograde
+            ap.reference_frame = vessel.orbital_reference_frame
         ap.target_direction = (0,1,0)
         acc = vessel.flight().g_force
         control.throttle += 0.1*(gtgt-acc)
