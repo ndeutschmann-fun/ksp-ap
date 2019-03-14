@@ -58,6 +58,8 @@ The launch sequence is the following:
 
 ## Suicide Burn
 
+Automatically and efficiently land on a body without gravity
+
 ## Execute Manoeuver
 
 ## Hover
